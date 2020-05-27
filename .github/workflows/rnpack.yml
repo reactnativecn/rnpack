@@ -17,17 +17,13 @@ jobs:
         with:
           node-version: '14.x'
       - name: Init Project 
-        run: npx react-native init rncn --version ${{ env.VERSION }} && rm -rf rncn/node_modules
+        run: npx react-native init rncn --version ${{ env.VERSION }}
       - name: Zip
-        uses: nguyenquyhy/zip-release@v0.3.0
-        with:
-          filename: release/release.zip
-          workingDirectory: rncn
+        run: rm -rf rncn/node_modules && zip -r -X rncn.zip rncn && rm -rf rncn
       - name: Push to repo
         uses: ad-m/github-push-action@v0.6.0
         with:
           branch: ${{ env.VERSION }}
-          directory: rncn/release
           
       
         
