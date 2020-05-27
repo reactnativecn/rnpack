@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: '14.x'
       - name: Init Project 
-        run: npx react-native init rncn --version ${{ env.VERSION }} --skip-install
+        run: npx react-native init rncn --version ${{ env.VERSION }}
       - name: Install pods
         run: sudo gem install cocoapods --no-document && cd rncn/ios && pod install
       - name: Zip
