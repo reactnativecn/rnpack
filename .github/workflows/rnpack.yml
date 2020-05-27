@@ -18,12 +18,8 @@ jobs:
           node-version: '14.x'
       - name: Init Project 
         run: npx react-native init rncn --version ${{ env.VERSION }} --skip-install
-      - name: Setup Cocoapods
-        uses: maxim-lobanov/setup-cocoapods@v1.1
-        with:
-          version: latest
       - name: Install pods
-        run: cd rncn/ios && pod install
+        run: sudo gem install cocoapods --no-document && cd rncn/ios && pod install
       - name: Zip
         uses: nguyenquyhy/zip-release@v0.3.0
         with:
