@@ -11,15 +11,13 @@ jobs:
       runs-on: macos-latest
       steps:
       - name: Set env
-        run: echo ::set-env name=VERSION::${GITHUB_REF#refs/*/}
+        run: echo ::set-env name=VERSION::${GITHUB_REF#refs/*/} && sudo gem install cocoapods --no-document
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
       - name: Init Project 
-        run: npx react-native init rncn --version ${{ env.VERSION }}
-      - name: Install pods
-        run: sudo gem install cocoapods --no-document && cd rncn/ios && pod install && rm -rf ../node_modules
+        run: npx react-native init rncn --version ${{ env.VERSION }} && rm -rf rncn/node_modules
       - name: Zip
         uses: nguyenquyhy/zip-release@v0.3.0
         with:
