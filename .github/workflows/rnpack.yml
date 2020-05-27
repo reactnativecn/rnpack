@@ -21,7 +21,7 @@ jobs:
       - name: Setup Cocoapods
         uses: maxim-lobanov/setup-cocoapods@v1.1
         with:
-          podfile-path: rncn/ios/Podfile
+          version: latest
       - name: Install pods
         run: cd rncn/ios && pod install
       - name: Zip
