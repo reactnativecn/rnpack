@@ -10,12 +10,14 @@ jobs:
       name: Create a react native project
       runs-on: ubuntu-latest
       steps:
+      - name: Set env
+        run: echo ::set-env name=VERSION::${GITHUB_REF#refs/*/}
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
       - name: Init Project 
-        run: npx init rncn --version ${{GITHUB_REF}} --skip-install
+        run: npx init rncn --version ${{ env.VERSION }} --skip-install
       - name: Setup Cocoapods
         uses: maxim-lobanov/setup-cocoapods@v1.1
         with:
@@ -30,7 +32,7 @@ jobs:
       - name: Push to repo
         uses: ad-m/github-push-action@v0.6.0
         with:
-          branch: ${{GITHUB_REF}}
+          branch: ${{ env.VERSION }}
           directory: rncn/release
           
       
