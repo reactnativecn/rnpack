@@ -8,7 +8,7 @@ on:
 jobs:
     build:
       name: Create a react native project
-      runs-on: ubuntu-latest
+      runs-on: macos-latest
       steps:
       - name: Set env
         run: echo ::set-env name=VERSION::${GITHUB_REF#refs/*/}
