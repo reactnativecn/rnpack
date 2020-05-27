@@ -1,0 +1,37 @@
+name: pack
+
+on:
+  push:
+    tags:
+    - '*'
+
+jobs:
+    build:
+      name: Create a react native project
+      runs-on: ubuntu-latest
+      steps:
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Init Project 
+        run: npx init rncn --version ${{GITHUB_REF}} --skip-install
+      - name: Setup Cocoapods
+        uses: maxim-lobanov/setup-cocoapods@v1.1
+        with:
+          podfile-path: rncn/ios/Podfile
+      - name: Install pods
+        run: cd rncn/ios && pod install
+      - name: Zip
+        uses: nguyenquyhy/zip-release@v0.3.0
+        with:
+          filename: release/release.zip
+          workingDirectory: rncn
+      - name: Push to repo
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          branch: ${{GITHUB_REF}}
+          directory: rncn/release
+          
+      
+        
