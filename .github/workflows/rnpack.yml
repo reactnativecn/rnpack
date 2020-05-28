@@ -11,6 +11,9 @@ jobs:
       runs-on: macos-latest
       steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+        
       - name: Set env
         run: echo ::set-env name=VERSION::${GITHUB_REF#refs/*/} && sudo gem install cocoapods --no-document
       - name: Setup Node
