@@ -44,6 +44,7 @@ jobs:
           git config --local user.email "sunnylqm@gmail.com"
           git config --local user.name "sunnylqm"
           rm -rf .github && rm README.md
+          git add rncn.zip
           git commit -m "Add rnpack" -a
       - name: Push to repo
         uses: ad-m/github-push-action@v0.6.0
