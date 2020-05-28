@@ -10,6 +10,7 @@ jobs:
       name: Create a react native project
       runs-on: macos-latest
       steps:
+      - uses: actions/checkout@v2
       - name: Set env
         run: echo ::set-env name=VERSION::${GITHUB_REF#refs/*/} && sudo gem install cocoapods --no-document
       - name: Setup Node
@@ -37,12 +38,17 @@ jobs:
       - name: Init Project 
         run: npx react-native init rncn --version ${{ env.VERSION }}
       - name: Zip
-        run: rm -rf rncn/node_modules && zip -r -X rncn.zip rncn && rm -rf rncn
+        run: rm -rf rncn/node_modules && zip -r -X rncn.zip rncn
+      - name: Commit files
+        run: |
+          git config --local user.email "sunnylqm@gmail.com"
+          git config --local user.name "sunnylqm"
+          rm -rf .github && rm README.md
+          git commit -m "Add rnpack" -a
       - name: Push to repo
         uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          repository: reactnativecn/rnpack
           branch: ${{ env.VERSION }}
           force: true          
       
