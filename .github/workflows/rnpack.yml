@@ -39,7 +39,7 @@ jobs:
             ${{ runner.os }}-pods-
             
       - name: Init Project 
-        run: npx react-native init rncn --version ${{ env.VERSION }}
+        run: npx react-native init rncn --version ${{ env.VERSION }} --template react-native-template-typescript
       - name: Zip
         run: rm -rf rncn/node_modules && zip -r -X rncn.zip rncn
       - name: Commit files
