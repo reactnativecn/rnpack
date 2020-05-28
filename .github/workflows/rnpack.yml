@@ -41,13 +41,13 @@ jobs:
       - name: Init Project 
         run: npx react-native init rncn --version ${{ env.VERSION }} --template react-native-template-typescript
       - name: Zip
-        run: rm -rf rncn/node_modules && zip -r -X rncn.zip rncn
+        run: rm -rf rncn/node_modules && zip -r -X -s 9m rncn.zip rncn
       - name: Commit files
         run: |
           git config --local user.email "sunnylqm@gmail.com"
           git config --local user.name "sunnylqm"
-          rm -rf .github && rm README.md
-          git add rncn.zip
+          rm -rf .github && rm README.md && rm -rf rncn
+          git add .
           git commit -m "Add rnpack" -a
       - name: Push to repo
         uses: ad-m/github-push-action@v0.6.0
